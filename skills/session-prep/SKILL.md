@@ -38,7 +38,7 @@ The session date is the filename. Take it from the campaign schedule when it is 
 
 ## Step 4 — Write the Prep half
 
-Create `sessions/YYYY-MM-DD.md` from the vault's session template when it has one (`reference/templates/session.md`); otherwise use a `# Prep` heading followed by a `# Log` heading. Fill only `# Prep`. If the file already exists, update the Prep half in place and never touch anything under `# Log`.
+Create `sessions/YYYY-MM-DD.md` from the vault's session template when it has one (`reference/templates/session.md`); otherwise use a `# Prep` heading followed by a `# Log` heading. Fill only `# Prep`. If the file already exists, update the Prep half in place and never touch anything under `# Log`. On a player seat, open an existing Prep half only when it is the user's own (written for this seat, as their earlier prep); if you can't tell without reading it, ask the user, and if it isn't theirs, leave it alone and say so.
 
 ### DM prep contains
 

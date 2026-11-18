@@ -11,7 +11,7 @@ Add one SRD 5.2.1 monster or spell to the vault on demand. The SRD is a two-colu
 
 Find the vault root (the nearest ancestor folder containing `.obsidian/`) and the shared reference folder (normally `reference/` beside `campaigns/`). Read the vault's `CLAUDE.md` and any `.claude/rules/` files: their conventions override the defaults below.
 
-**Read boundary.** When a session skill on a player seat calls this one, keep to that seat's readable notes: search and open only the shared `reference/` folder and the notes the caller may read, and pass each readable folder to the script with `--allow`. Called directly, ask the user which campaign and seat it is for when the vault has player-seat campaigns.
+**Read boundary.** When a session skill on a player seat calls this one, keep to that seat's readable notes: search and open only the shared `reference/` folder and the notes the caller may read, and pass the shared `reference/` folder plus each readable note (a file) or wholly readable folder to the script with `--allow`; a folder that mixes readable and private notes is passed note by note. Called directly from a player seat, or when you can't tell the seat, ask which campaign and seat it is for and apply the same boundary. On a DM seat, `--allow` is not needed.
 
 Search the readable notes for one with the entry's name before importing. If the shared note already exists, link to it and stop.
 
@@ -37,6 +37,9 @@ python3 "$S" --pdf "$PDF" list monsters goblin        # find the exact SRD name
 python3 "$S" --pdf "$PDF" monster "Goblin Warrior"    # preview on stdout
 python3 "$S" --pdf "$PDF" monster "Goblin Warrior" --out <vault>/reference/bestiary --vault <vault root>
 python3 "$S" --pdf "$PDF" spell "Fireball" --out <vault>/reference/spells --vault <vault root>
+# player seat: name only clashes the seat may read; every other clash is just counted
+python3 "$S" --pdf "$PDF" monster "Goblin Warrior" --out <vault>/reference/bestiary --vault <vault root> \
+  --allow <vault>/reference --allow <each readable note or folder>
 ```
 
 - 2024 names differ from 2014: "Thug" is **Tough**, "Veteran" is **Warrior Veteran**, "Goblin" is **Goblin Warrior**. Use `list` with a fragment when a name is not found.

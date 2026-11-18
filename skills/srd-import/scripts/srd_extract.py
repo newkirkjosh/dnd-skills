@@ -434,7 +434,7 @@ def main():
     ap.add_argument("--vault", type=Path)
     ap.add_argument("--suffix", default="")
     ap.add_argument("--allow", type=Path, action="append", default=[],
-                    help="with --vault: name clashing paths only under these folders; report others as a count")
+                    help="with --vault: name clashing paths only when they are, or sit under, one of these notes or folders; count the rest")
     a = ap.parse_args()
     if not a.pdf.exists():
         raise SystemExit(f"PDF not found: {a.pdf}")
