@@ -418,6 +418,45 @@ def spell_note(name, body, join):
     return "\n".join(fm + head) + "\n" + "\n\n".join(blocks) + f"\n\n*{ATTRIBUTION}*\n"
 
 
+# ---------------------------------------------------------------- read/write boundary
+class Boundary:
+    """The notes and folders a seat may touch, as paths inside the vault.
+
+    An --allow entry must name its real location: one reached through a symlink
+    would otherwise authorize wherever the link points. A path is covered only
+    when both its own location and what it resolves to are inside an entry.
+    """
+
+    def __init__(self, vault, allow):
+        if not vault:
+            raise SystemExit("--allow needs --vault")
+        self.abs, self.real = vault.absolute(), vault.resolve()
+        self.entries = []
+        for p in allow:
+            shown, real = self._shown(p), self._real(p)
+            if shown is None or shown != real:
+                raise SystemExit(f"--allow must name a real location inside the vault: {p}")
+            self.entries.append(real)
+
+    def _shown(self, p):
+        p = p.absolute()
+        for root in (self.abs, self.real):
+            if p.is_relative_to(root):
+                return p.relative_to(root)
+        return None
+
+    def _real(self, p):
+        r = p.resolve()
+        return r.relative_to(self.real) if r.is_relative_to(self.real) else None
+
+    def covers(self, p):
+        shown, real = self._shown(p), self._real(p)
+        if shown is None or real is None:
+            return False
+        inside = lambda x: any(x.is_relative_to(e) for e in self.entries)
+        return inside(shown) and inside(real)
+
+
 # ---------------------------------------------------------------- cli
 
 def find(blocks, name):
@@ -459,20 +498,18 @@ def main():
     if not a.out:
         sys.stdout.write(note); return
     fname = f"{name}{a.suffix}.md".replace("/", "-")
+    boundary = Boundary(a.vault, a.allow) if a.allow else None
     if a.vault:
         clash = [p for p in a.vault.rglob("*.md") if p.name.lower() == fname.lower() and ".trash" not in p.parts]
         if clash:
-            allowed = [p.resolve() for p in a.allow] + [p.absolute() for p in a.allow]
-            def readable(p):  # both the path shown and what it points to must be inside the boundary
-                return any(p.absolute().is_relative_to(d) for d in allowed) and any(p.resolve().is_relative_to(d) for d in allowed)
-            shown = [c for c in clash if not allowed or readable(c)]
+            shown = [c for c in clash if boundary is None or boundary.covers(c)]
             hidden = len(clash) - len(shown)
             where = ", ".join(str(c) for c in shown) + (f" (+{hidden} outside the readable folders)" if hidden else "")
             print(f"Basename clash for {fname}: " + where +
                   "\nRe-run with --suffix (e.g. ' (Spell)' or ' (Rules)') or pick the right layer.", file=sys.stderr)
             sys.exit(3)
     target = a.out / fname
-    if a.allow and not any(a.out.resolve().is_relative_to(p.resolve()) for p in a.allow):
+    if boundary and not boundary.covers(a.out):
         raise SystemExit(f"Refusing to write outside the allowed folders: {a.out}")
     a.out.mkdir(parents=True, exist_ok=True)
     try:
