@@ -54,6 +54,8 @@ Create `sessions/YYYY-MM-DD.md` from the vault's session template when it has on
 
 ### Player prep contains
 
+**Audience first.** If others can read this session file, keep the character's private goals and secrets out of it: they stay on the user's own sheet, and the Prep links there. Write them here only when the Prep half is private to this player.
+
 - **Where we're picking up**, from the character's point of view.
 - **Quick reference:** the user's own AC, HP, spell save DC, prepared spells or limited-use features worth remembering.
 - **Threads my character can pull:** personal goals, unanswered questions, NPCs to follow up with.
