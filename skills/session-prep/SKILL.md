@@ -11,7 +11,7 @@ The vault's own `CLAUDE.md` and `.claude/rules/` files override anything here. R
 
 ## Step 1 — Establish which campaign and which seat
 
-Identify the campaign folder. Read its `CLAUDE.md` and `party.md`; the contract's `seat` field says whether the user is the **DM** or a **player**. This decides everything else, so settle it before reading further. If the field is blank and neither file says, ask, then write the answer into the contract.
+Identify the campaign folder and read its `CLAUDE.md` contract first: the `seat` field says whether the user is the **DM** or a **player**. This decides everything else, so settle it before reading any other note. If the field is blank and the contract doesn't say, ask, then write the answer into the contract.
 
 **Player seat: settle access before reading anything else.** Read only the user's own character sheet, the session logs and party-visible notes; never `module/`, DM-marked notes, other characters' private notes, or anything the character could not know.
 
@@ -22,7 +22,7 @@ Hard boundary: read only inside this campaign's folder and the vault's shared `r
 Read, in this order:
 
 1. The most recent session file's **Log** half: where play stopped, open questions, thread updates, anything promised to a player.
-2. `active-threads.md`: what is ready to pay off.
+2. `active-threads.md`: what is ready to pay off (on a player seat, only when it holds the party's own threads).
 3. Campaign `CLAUDE.md`: rulings, approved exceptions, session length and schedule, tone and safety notes.
 4. Character sheets (on a player seat, only the user's own), for the quick-reference line and for open "Questions for the player".
 
@@ -68,7 +68,7 @@ No stat blocks, no module text, no speculation about hidden plot.
 
 ## Step 5 — Check links and gaps
 
-Confirm every wikilink written resolves to a note in the vault. For each one that does not:
+Confirm every wikilink written resolves to a note in the vault, checking only notes this seat may read; on a player seat, a link that would need another note opened to check is listed as a gap instead. For each one that does not:
 
 - a creature with no stat block: say so and offer an import; on a yes, load the `srd-import` skill once per creature, passing this seat's read boundary, then re-link it here;
 - an NPC or location with no note: list it as a gap rather than inventing the note unprompted.

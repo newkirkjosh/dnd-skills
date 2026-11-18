@@ -15,7 +15,7 @@ The vault's own `CLAUDE.md` and `.claude/rules/` override anything here. Read th
 
 Identify the campaign folder and read its `CLAUDE.md` contract first, for the `seat` field (and rulings, and who is the DM); if the field is blank and the contract doesn't say, ask before reading anything else. The seat decides what may be read and written.
 
-On a **player** seat, read only the user's own character sheet, `party.md` and `active-threads.md` when they hold party-visible notes, the **Log** halves of session files (a Prep half may be the DM's or another player's), the user's own prep, and other party-visible notes; never `module/`, DM-marked notes or other characters' private notes. Record only what the user's character saw or was told, never a guess at hidden plot. Every later step, searches and any skill this one calls included, stays inside that boundary.
+On a **player** seat, read only the user's own character sheet, `party.md` and `active-threads.md` when they hold party-visible notes, the **Log** halves of session files (a Prep half may be the DM's or another player's), the user's own prep, and other party-visible notes; never `module/`, DM-marked notes or other characters' private notes. Write only to the session file's Log half, the user's own character sheet, and party-visible notes the user keeps, and only what the user's character saw or was told, never a guess at hidden plot; never the contract's DM fields, DM-marked notes or other characters' private notes. Every later step, searches and any skill this one calls included, stays inside that boundary.
 
 On a DM seat, also read `party.md` and `active-threads.md` now.
 
