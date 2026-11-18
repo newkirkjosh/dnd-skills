@@ -70,7 +70,7 @@ No stat blocks, no module text, no speculation about hidden plot.
 
 Confirm every wikilink written resolves to a note in the vault, checking only notes this seat may read; on a player seat, a link that would need another note opened to check is listed as a gap instead. For each one that does not:
 
-- a creature with no stat block: say so and offer an import; on a yes, load the `srd-import` skill once per creature, passing this seat's read boundary, then re-link it here;
+- a creature with no stat block: say so and offer an import; on a yes, load the `srd-import` skill once per creature, passing this seat's read and write boundaries, then re-link it here;
 - an NPC or location with no note: list it as a gap rather than inventing the note unprompted.
 
 ## Step 6 — Report

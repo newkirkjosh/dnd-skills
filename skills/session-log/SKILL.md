@@ -58,7 +58,7 @@ Change only what the session changed.
 - **NPCs and places:** follow the campaign's entity style from the layout rule. One note per entity: create new notes from the vault's `npc.md` / `location.md` templates. Roll-up files: add or update a `###` entry. Either way, record what the party knows, attitude, and what changed.
 - **Characters:** level, HP, inventory, relationships, resolved "Questions for the player".
 - **Campaign `CLAUDE.md`:** contract fields the session changed (`level`, `party_size`, `chapter`) and any new ruling or approved exception, dated.
-- **Creatures:** a fought creature with no stat block note: list it as a gap and offer an import; on a yes, load the `srd-import` skill, passing this seat's read boundary. Never write a statblock by hand.
+- **Creatures:** a fought creature with no stat block note: list it as a gap and offer an import; on a yes, load the `srd-import` skill, passing this seat's read and write boundaries. Never write a statblock by hand.
 
 Then **close the loop**: search the notes you may read (on a player seat, only those Step 1 allows) for every one that names an affected NPC, place or item and fix anything the session made untrue (dead NPCs, moved items, changed allegiances). Confirm every wikilink you wrote resolves.
 
