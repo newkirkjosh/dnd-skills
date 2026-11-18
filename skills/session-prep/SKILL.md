@@ -13,6 +13,8 @@ The vault's own `CLAUDE.md` and `.claude/rules/` files override anything here. R
 
 Identify the campaign folder. Read its `CLAUDE.md` and `party.md`; the contract's `seat` field says whether the user is the **DM** or a **player**. This decides everything else, so settle it before reading further. If the field is blank and neither file says, ask, then write the answer into the contract.
 
+**Player seat: settle access before reading anything else.** Read only the user's own character sheet, the session logs and party-visible notes; never `module/`, DM-marked notes, other characters' private notes, or anything the character could not know.
+
 Hard boundary: read only inside this campaign's folder and the vault's shared `reference/` folder. Never open another campaign, even one running the same adventure. Users often run one table and play at another; a fact carried across is a spoiler that cannot be taken back.
 
 ## Step 2 — Load what changed last time
@@ -22,7 +24,7 @@ Read, in this order:
 1. The most recent session file's **Log** half: where play stopped, open questions, thread updates, anything promised to a player.
 2. `active-threads.md`: what is ready to pay off.
 3. Campaign `CLAUDE.md`: rulings, approved exceptions, session length and schedule, tone and safety notes.
-4. Character sheets, for the quick-reference line and for open "Questions for the player".
+4. Character sheets (on a player seat, only the user's own), for the quick-reference line and for open "Questions for the player".
 
 **Gate:** if the last session has no log yet, or its log still has open `<!-- unclear: ... -->` items, stop and say so. Prep built on an unlogged or unsettled session is wrong about where things stand. Offer the log first; on a yes, load the `session-log` skill and come back to prep only when the user asks.
 
@@ -48,6 +50,7 @@ Create `sessions/YYYY-MM-DD.md` from the vault's session template when it has on
 - **Threads ripe to pull:** from `active-threads.md`, each tied to the PC it belongs to.
 - **If they go off-track:** two or three likely detours, each one line, plus a few ready names.
 - **Target stopping point:** where to end, with an earlier and a later fallback.
+- **Secrets:** a PC's secret from the party goes under a DM-only callout and is delivered privately, never read aloud.
 
 ### Player prep contains
 
@@ -61,7 +64,6 @@ No stat blocks, no module text, no speculation about hidden plot.
 ### In both
 
 - Link instead of restating: `[[NPC]]`, `[[Location]]`, `[[Grappled]]`. A rule or stat block belongs in its own note.
-- Keep secrets where they belong. A PC's secret from the party goes under a DM-only callout and is delivered privately, never read aloud.
 - Use the user's wording for anything they already wrote in the file.
 
 ## Step 5 — Check links and gaps

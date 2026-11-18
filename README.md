@@ -10,7 +10,7 @@ npx skills add newkirkjosh/dnd-skills -g
 
 Add `-s <skill>` to install only some skills.
 
-To edit the skills, clone the repository and run `scripts/install.sh` from the main checkout instead. It links the skills rather than copying them, so the checkout's `main` is what every session loads: make changes in a worktree, and after they merge, update the main checkout (`git pull`) and re-run the installer there. If you installed with `npx skills` first, remove those copies with `npx skills remove -g <skill>` before running the installer; it refuses to replace an existing skill.
+To edit the skills, clone the repository and run `scripts/install.sh` from the main checkout instead. It links the skills rather than copying them, so every session loads whatever the main checkout has checked out (keep it on `main`): make changes in a worktree, and after they merge, update the main checkout (`git pull`) and re-run the installer there. If you installed with `npx skills` first, remove those copies with `npx skills remove -g <skill>` before running the installer; it refuses to replace an existing skill.
 
 ## Skills
 

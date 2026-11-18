@@ -72,11 +72,7 @@ Read the new note before reporting it done.
 
 ## When the entry is not in the SRD
 
-The script says so and exits 1. Many 2025 Monster Manual creatures (kenku, duergar, mind flayer, intellect devourer) and some 2024 spells are not in the SRD. Do not write a shared reference note from memory. Instead:
-
-1. Use the adventure module's own appendix if the campaign has it, otherwise the 2014 stat block.
-2. Put the note in the **campaign's** bestiary under its plain name, with `source:` stating exactly where the numbers came from.
-3. Tell the user it is not SRD content and should be checked against D&D Beyond.
+The script says so and exits 1. Many 2025 Monster Manual creatures (kenku, duergar, mind flayer, intellect devourer) and some 2024 spells are not in the SRD. Stop there: tell the user it isn't SRD content, and don't write a note from memory or fetch one from another source. If the user gives you the numbers from their own book, put that note in the **campaign's** bestiary under its plain name, with `source:` naming what they gave you.
 
 ## Gotchas
 
