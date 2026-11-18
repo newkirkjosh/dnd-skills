@@ -13,7 +13,7 @@ The vault's own `CLAUDE.md` and `.claude/rules/` override anything here. Read th
 
 ## Step 1 — Campaign and seat
 
-Identify the campaign folder and read its `CLAUDE.md` (contract frontmatter, rulings, who is the DM), `party.md` and `active-threads.md`. The `seat` field decides what may be written: on a **player** seat, record only what the user's character saw or was told, never a guess at hidden plot.
+Identify the campaign folder and read its `CLAUDE.md` (contract frontmatter, rulings, who is the DM), `party.md` and `active-threads.md`. The `seat` field decides what may be read and written. On a **player** seat, settle this before reading anything else: read only the user's own character sheet, the session files, and party-visible notes, never `module/`, DM-marked notes or other characters' private notes, and record only what the user's character saw or was told, never a guess at hidden plot. Every later step, searches included, stays inside that boundary.
 
 Read only this campaign's folder and the vault's shared `reference/`. Another campaign may run the same adventure; nothing crosses between them.
 
@@ -56,7 +56,7 @@ Change only what the session changed.
 - **Campaign `CLAUDE.md`:** contract fields the session changed (`level`, `party_size`, `chapter`) and any new ruling or approved exception, dated.
 - **Creatures:** a fought creature with no stat block note: list it as a gap and offer an import; on a yes, load the `srd-import` skill. Never write a statblock by hand.
 
-Then **close the loop**: search the campaign for every note that names an affected NPC, place or item and fix anything the session made untrue (dead NPCs, moved items, changed allegiances). Confirm every wikilink you wrote resolves.
+Then **close the loop**: search the notes you may read (on a player seat, only those Step 1 allows) for every one that names an affected NPC, place or item and fix anything the session made untrue (dead NPCs, moved items, changed allegiances). Confirm every wikilink you wrote resolves.
 
 ## Step 5 — Recap (offer, don't assume)
 
