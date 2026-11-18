@@ -33,6 +33,8 @@ Read the previous session's `# Log` for continuity: who is alive, the in-game da
 
 ## Step 3 — Write the Log half
 
+**Audience first, on a player seat.** The Log and party-visible notes are shared: a private whisper or a secret the character keeps never goes into them, directly, through a derived section, or in an `<!-- unclear -->` comment; it belongs on the user's own sheet. If text the user already wrote there holds such a detail, leave it as written, tell the user privately, and keep it out of everything derived from it.
+
 Fill the template's Log sections from the notes:
 
 - **Where we started:** one sentence.
@@ -52,7 +54,7 @@ If the notes are ambiguous on something the derived sections depend on (who died
 
 ## Step 4 — Update the campaign
 
-Change only what the session changed. On a player seat, what goes into a note must suit who can read that note: a private whisper or a secret the character keeps stays out of the shared Log and party-visible notes (it belongs on the user's own sheet). Every edit in this step stays inside Step 1's write boundary: a change that belongs in a note the user can read but doesn't keep (the contract, the DM's notes, another player's sheet) is listed in the report for whoever owns it, not made.
+Change only what the session changed. On a player seat, Step 3's audience rule applies to every note here too. Every edit in this step stays inside Step 1's write boundary: a change that belongs in a note the user can read but doesn't keep (the contract, the DM's notes, another player's sheet) is listed in the report for whoever owns it, not made.
 
 - **`active-threads.md`:** new threads, changed statuses, resolved threads, and the in-game date at the top.
 - **NPCs and places:** follow the campaign's entity style from the layout rule. One note per entity: create new notes from the vault's `npc.md` / `location.md` templates. Roll-up files: add or update a `###` entry. Either way, record what the party knows, attitude, and what changed.
