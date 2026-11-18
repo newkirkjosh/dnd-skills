@@ -13,7 +13,11 @@ The vault's own `CLAUDE.md` and `.claude/rules/` override anything here. Read th
 
 ## Step 1 — Campaign and seat
 
-Identify the campaign folder and read its `CLAUDE.md` (contract frontmatter, rulings, who is the DM), `party.md` and `active-threads.md`. The `seat` field decides what may be read and written. On a **player** seat, settle this before reading anything else: read only the user's own character sheet, the session files, and party-visible notes, never `module/`, DM-marked notes or other characters' private notes, and record only what the user's character saw or was told, never a guess at hidden plot. Every later step, searches included, stays inside that boundary.
+Identify the campaign folder and read its `CLAUDE.md` contract first, for the `seat` field (and rulings, and who is the DM); if the field is blank and the contract doesn't say, ask before reading anything else. The seat decides what may be read and written.
+
+On a **player** seat, read only the user's own character sheet, `party.md` and `active-threads.md` when they hold party-visible notes, the **Log** halves of session files (a Prep half may be the DM's or another player's), the user's own prep, and other party-visible notes; never `module/`, DM-marked notes or other characters' private notes. Record only what the user's character saw or was told, never a guess at hidden plot. Every later step, searches and any skill this one calls included, stays inside that boundary.
+
+On a DM seat, also read `party.md` and `active-threads.md` now.
 
 Read only this campaign's folder and the vault's shared `reference/`. Another campaign may run the same adventure; nothing crosses between them.
 
@@ -54,7 +58,7 @@ Change only what the session changed.
 - **NPCs and places:** follow the campaign's entity style from the layout rule. One note per entity: create new notes from the vault's `npc.md` / `location.md` templates. Roll-up files: add or update a `###` entry. Either way, record what the party knows, attitude, and what changed.
 - **Characters:** level, HP, inventory, relationships, resolved "Questions for the player".
 - **Campaign `CLAUDE.md`:** contract fields the session changed (`level`, `party_size`, `chapter`) and any new ruling or approved exception, dated.
-- **Creatures:** a fought creature with no stat block note: list it as a gap and offer an import; on a yes, load the `srd-import` skill. Never write a statblock by hand.
+- **Creatures:** a fought creature with no stat block note: list it as a gap and offer an import; on a yes, load the `srd-import` skill, passing this seat's read boundary. Never write a statblock by hand.
 
 Then **close the loop**: search the notes you may read (on a player seat, only those Step 1 allows) for every one that names an affected NPC, place or item and fix anything the session made untrue (dead NPCs, moved items, changed allegiances). Confirm every wikilink you wrote resolves.
 

@@ -11,7 +11,9 @@ Add one SRD 5.2.1 monster or spell to the vault on demand. The SRD is a two-colu
 
 Find the vault root (the nearest ancestor folder containing `.obsidian/`) and the shared reference folder (normally `reference/` beside `campaigns/`). Read the vault's `CLAUDE.md` and any `.claude/rules/` files: their conventions override the defaults below.
 
-Search the vault for a note with the entry's name before importing. If the shared note already exists, link to it and stop.
+**Read boundary.** When a session skill on a player seat calls this one, keep to that seat's readable notes: search and open only the shared `reference/` folder and the notes the caller may read, and pass each readable folder to the script with `--allow`. Called directly, ask the user which campaign and seat it is for when the vault has player-seat campaigns.
+
+Search the readable notes for one with the entry's name before importing. If the shared note already exists, link to it and stop.
 
 ## Step 2 — Get the PDF
 
@@ -43,7 +45,7 @@ python3 "$S" --pdf "$PDF" spell "Fireball" --out <vault>/reference/spells --vaul
 
 ## Step 4 — Resolve a basename clash
 
-Wikilinks resolve by filename, so two notes may never share a basename. On exit 3, read the clashing note, then:
+Wikilinks resolve by filename, so two notes may never share a basename. On exit 3, read the clashing note if it is inside the read boundary. A clash the script only counts (outside the boundary) is reported to the user as a clash with a note this seat can't read, and the import stops there. Otherwise:
 
 - **Same SRD entry already imported:** do nothing; link to the existing note.
 - **A glossary or other reference note with the same name** (`Darkness`, `Darkvision` are both a rule and a spell): re-run with `--suffix " (Spell)"` so the new note is `Darkness (Spell).md`.

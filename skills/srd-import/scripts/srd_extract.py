@@ -11,7 +11,8 @@ which is what tells a stat block name from a trait name from body text.
   srd_extract.py --pdf SRD.pdf spell "Fireball" --out DIR --vault VAULT
 
 --out DIR writes "<Name>.md" there and refuses to overwrite. --vault VAULT makes the script
-refuse (exit 3) when any note with the same basename already exists in the vault, unless
+refuse (exit 3) when any note with the same basename already exists in the vault (with --allow DIR,
+repeatable, it names only clashes under those folders and counts the rest), unless
 --suffix " (Spell)" is given to rename the new note.
 """
 import argparse, html, json, re, subprocess, sys
@@ -432,6 +433,8 @@ def main():
     ap.add_argument("--out", type=Path)
     ap.add_argument("--vault", type=Path)
     ap.add_argument("--suffix", default="")
+    ap.add_argument("--allow", type=Path, action="append", default=[],
+                    help="with --vault: name clashing paths only under these folders; report others as a count")
     a = ap.parse_args()
     if not a.pdf.exists():
         raise SystemExit(f"PDF not found: {a.pdf}")
@@ -454,7 +457,11 @@ def main():
     if a.vault:
         clash = [p for p in a.vault.rglob("*.md") if p.name.lower() == fname.lower() and ".trash" not in p.parts]
         if clash:
-            print(f"Basename clash for {fname}: " + ", ".join(str(c) for c in clash) +
+            allowed = [p.resolve() for p in a.allow]
+            shown = [c for c in clash if not allowed or any(c.resolve().is_relative_to(d) for d in allowed)]
+            hidden = len(clash) - len(shown)
+            where = ", ".join(str(c) for c in shown) + (f" (+{hidden} outside the readable folders)" if hidden else "")
+            print(f"Basename clash for {fname}: " + where +
                   "\nRe-run with --suffix (e.g. ' (Spell)' or ' (Rules)') or pick the right layer.", file=sys.stderr)
             sys.exit(3)
     target = a.out / fname

@@ -70,7 +70,7 @@ No stat blocks, no module text, no speculation about hidden plot.
 
 Confirm every wikilink written resolves to a note in the vault. For each one that does not:
 
-- a creature with no stat block: say so and offer an import; on a yes, load the `srd-import` skill once per creature, then re-link it here;
+- a creature with no stat block: say so and offer an import; on a yes, load the `srd-import` skill once per creature, passing this seat's read boundary, then re-link it here;
 - an NPC or location with no note: list it as a gap rather than inventing the note unprompted.
 
 ## Step 6 — Report
