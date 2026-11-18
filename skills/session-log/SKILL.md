@@ -52,7 +52,7 @@ If the notes are ambiguous on something the derived sections depend on (who died
 
 ## Step 4 — Update the campaign
 
-Change only what the session changed.
+Change only what the session changed. On a player seat, every edit in this step stays inside Step 1's write boundary: a change that belongs in a note the user can read but doesn't keep (the contract, the DM's notes, another player's sheet) is listed in the report for whoever owns it, not made.
 
 - **`active-threads.md`:** new threads, changed statuses, resolved threads, and the in-game date at the top.
 - **NPCs and places:** follow the campaign's entity style from the layout rule. One note per entity: create new notes from the vault's `npc.md` / `location.md` templates. Roll-up files: add or update a `###` entry. Either way, record what the party knows, attitude, and what changed.
@@ -60,7 +60,7 @@ Change only what the session changed.
 - **Campaign `CLAUDE.md`:** contract fields the session changed (`level`, `party_size`, `chapter`) and any new ruling or approved exception, dated.
 - **Creatures:** a fought creature with no stat block note: list it as a gap and offer an import; on a yes, load the `srd-import` skill, passing this seat's read and write boundaries. Never write a statblock by hand.
 
-Then **close the loop**: search the notes you may read (on a player seat, only those Step 1 allows) for every one that names an affected NPC, place or item and fix anything the session made untrue (dead NPCs, moved items, changed allegiances). Confirm every wikilink you wrote resolves.
+Then **close the loop**: search the notes you may read (on a player seat, only those Step 1 allows) for every one that names an affected NPC, place or item, and fix anything the session made untrue in the notes you may write, reporting the rest (dead NPCs, moved items, changed allegiances). Confirm every wikilink you wrote resolves.
 
 ## Step 5 — Recap (offer, don't assume)
 
@@ -79,4 +79,4 @@ Stop here. Prepping the next session is a separate request: mention that `sessio
 - **The table outranks the module.** Log what happened, even when it contradicts the book or the prep.
 - **Same adventure, two tables.** Overlapping names across campaigns are separate people. The seat check in Step 1 runs per folder, every time.
 - **Don't rewrite unaffected sections** of threads, NPC or character notes; edit the lines that changed.
-- **Status lines drift.** When the campaign `CLAUDE.md` status disagrees with the session files, the session files win; update the status line.
+- **Status lines drift.** When the campaign `CLAUDE.md` status disagrees with the session files, the session files win; update the status line (on a player seat, report it instead).
