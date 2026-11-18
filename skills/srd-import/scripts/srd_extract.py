@@ -479,6 +479,8 @@ def main():
     ap.add_argument("--suffix", default="")
     ap.add_argument("--allow", type=Path, action="append", default=[],
                     help="with --vault: name clashing paths only when they are, or sit under, one of these notes or folders; count the rest")
+    ap.add_argument("--allow-write", type=Path, action="append", default=[],
+                    help="with --allow: folders --out may write to; without one, --out is refused")
     a = ap.parse_args()
     if not a.pdf.exists():
         raise SystemExit(f"PDF not found: {a.pdf}")
@@ -509,8 +511,9 @@ def main():
                   "\nRe-run with --suffix (e.g. ' (Spell)' or ' (Rules)') or pick the right layer.", file=sys.stderr)
             sys.exit(3)
     target = a.out / fname
-    if boundary and not boundary.covers(a.out):
-        raise SystemExit(f"Refusing to write outside the allowed folders: {a.out}")
+    writable = Boundary(a.vault, a.allow_write) if a.allow_write else None
+    if boundary and not (writable and writable.covers(a.out)):
+        raise SystemExit(f"Refusing to write outside the --allow-write folders: {a.out}")
     a.out.mkdir(parents=True, exist_ok=True)
     try:
         # Exclusive create: also refuses an existing file or a dangling symlink.

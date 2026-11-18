@@ -31,5 +31,9 @@ try:
     Boundary(v, [Path(tempfile.mkdtemp())]); check("allow entry outside the vault is refused", False)
 except SystemExit:
     check("allow entry outside the vault is refused", True)
+w = Boundary(v, [v / "reference"])
+(v / "party").mkdir(); read = Boundary(v, [v / "reference", v / "party"])
+check("a readable folder can be named", read.covers(v / "party"))
+check("but is not writable unless listed", not w.covers(v / "party"))
 sys.exit(1 if fails else 0)
 PY
