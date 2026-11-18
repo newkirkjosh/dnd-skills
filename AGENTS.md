@@ -4,7 +4,7 @@ A public, MIT-licensed catalog of reusable D&D / TTRPG skills for an Obsidian ca
 
 Read REVIEW.md before reviewing. Skills use the open Agent Skills format with matching directory/frontmatter names. Every description opens with exactly `Explicit-use only — invoke when the user explicitly names this skill, or when an active explicitly invoked workflow calls it.` and carries no trigger phrases. Keep scripts and references beside their skill. Preserve upstream attribution: these skills were extracted from newkirkjosh/skills at 952c096b5ce0b7d11ee4d9727edd162e0df8da85.
 
-Work in a worktree; install only from the main checkout after merge. Never bypass commit hooks. Before committing, run `agentskills validate` on each changed skill, `scripts/check-descriptions.sh`, `scripts/check-refs.sh`, `scripts/check-private.sh`, and every `scripts/test-*.sh` and `skills/*/scripts/test-*.sh`. Check syntax for every changed script. CI runs the same checks plus a gitleaks scan of the full history.
+Work in a worktree; install only from the main checkout after merge. Never bypass commit hooks. Before committing, run `agentskills validate` on each changed skill, `scripts/check-descriptions.sh`, `scripts/check-refs.sh`, `scripts/check-private.sh --staged`, and every `scripts/test-*.sh` and `skills/*/scripts/test-*.sh`. Check syntax for every changed script. CI runs the same checks plus a gitleaks scan of the full history.
 
 No skill here captures content from D&D Beyond or any other paid source; that stays out of public catalogs.
 

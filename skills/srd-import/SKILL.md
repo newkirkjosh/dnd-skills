@@ -9,7 +9,7 @@ Add one SRD 5.2.1 monster or spell to the vault on demand. The SRD is a two-colu
 
 ## Step 1 — Check the vault first
 
-Find the vault root (the nearest ancestor folder containing `.obsidian/`) and the shared reference folder (normally `reference/` beside `campaigns/`). Read the vault's `CLAUDE.md` and any `.claude/rules/` files: their conventions override the defaults below.
+Find the vault root (the nearest ancestor folder containing `.obsidian/`) and the shared reference folder (normally `reference/` beside `campaigns/`). Settle the seat first (Read boundary, below); then read the vault's `CLAUDE.md` and the `.claude/rules/` files that seat may see: their conventions override the defaults below.
 
 **Read boundary.** When a session skill on a player seat calls this one, keep to that seat's readable notes: search and open only the shared `reference/` folder and the notes the caller may read, and pass the shared `reference/` folder plus each readable note (a file) or wholly readable folder to the script with `--allow`; a folder that mixes readable and private notes is passed note by note. Called directly from a player seat, or when you can't tell the seat, ask which campaign and seat it is for and apply the same boundary. On a DM seat, `--allow` is not needed. The caller's **write** boundary comes along too, for every file this skill would touch: from a player seat, the unmodified SRD note may go into the shared `reference/` folder (it is public SRD text) and its reference index; a campaign variant or a note built from numbers the user supplies goes only where that seat may write (the user's own notes), and if there is no such place, stop and tell the user. A player seat never renames or relinks a campaign note (Step 4) or edits a note it may not write; it reports the problem instead.
 
@@ -63,6 +63,7 @@ When a campaign changes a creature (different HP, an extra trait, a named NPC bu
 1. the line `*Campaign version. SRD base: [[<Monster>]].*`
 2. a callout: where it appears, scaling for the party size, what is dangerous
 3. a full copy of the stat block with the edits applied, and the edits named in `source:`
+4. the SRD attribution notice from the base note, unchanged, since the copy still carries SRD text
 
 Campaign notes then link to the campaign version: `[[Troll (Homebrew)|Troll]]`. Inside a markdown table, escape the pipe: `[[Troll (Homebrew)\|Troll]]`.
 
