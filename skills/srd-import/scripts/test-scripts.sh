@@ -8,7 +8,7 @@ PYTHONDONTWRITEBYTECODE=1 HERE="$here" python3 -I - <<'PY'
 import os, sys, tempfile
 from pathlib import Path
 sys.path.insert(0, os.environ["HERE"])
-from srd_extract import Boundary, cache_path
+from srd_extract import Boundary, cache_path, verify_pdf
 
 v = Path(tempfile.mkdtemp())
 (v / "reference").mkdir(); (v / "private").mkdir()
@@ -37,6 +37,11 @@ os.symlink(v / "private/loop.md", v / "private/loop.md")
 check("a private symlink loop is hidden, not an error", not b.covers(v / "private/loop.md"))
 os.symlink(v / "reference/loop.md", v / "reference/loop.md")
 check("an allowed symlink loop is hidden, not an error", not b.covers(v / "reference/loop.md"))
+(v / "other.pdf").write_bytes(b"not the SRD")
+try:
+    verify_pdf(v / "other.pdf"); check("a different PDF is refused", False)
+except SystemExit:
+    check("a different PDF is refused", True)
 os.environ["XDG_CACHE_HOME"] = str(v / "user-cache")
 c = cache_path(v / "reference/SRD.pdf", 1, 2)
 check("parsed pages are cached outside the vault's PDF folder", c.is_relative_to(v / "user-cache") and not c.is_relative_to(v / "reference"))

@@ -42,7 +42,7 @@ Create `sessions/YYYY-MM-DD.md` from the vault's session template when it has on
 
 ### DM prep contains
 
-**Audience first.** Establish who can read this session file before writing anything. If players can, the running order, encounters, DCs and other DM-only material go in a DM-only note, and the Prep half only links to it.
+**Audience first.** Establish who can read this session file before writing anything. If players can, the running order, encounters, DCs and other DM-only material go in a DM-only note, and the Prep half holds only what players may see, with no link or title that hints at that note.
 
 - **Where we're picking up:** one or two sentences, straight from the last log.
 - **Pre-game checklist:** maps loaded, handouts ready, player questions that must be answered before play.

@@ -32,6 +32,16 @@ ATTRIBUTION = ("This work includes material from the System Reference Document 5
                "https://creativecommons.org/licenses/by/4.0/legalcode.")
 
 
+# The official SRD 5.2.1 PDF: only this file may be labelled and attributed as the SRD.
+SRD_PDF_SHA256 = "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87"
+
+
+def verify_pdf(pdf: Path) -> None:
+    digest = hashlib.sha256(pdf.read_bytes()).hexdigest()
+    if digest != SRD_PDF_SHA256:
+        raise SystemExit(f"Not the official SRD 5.2.1 PDF (sha256 {digest}): {pdf}")
+
+
 def cache_path(pdf: Path, first: int, last: int) -> Path:
     """Parsed pages live in the user's cache, never beside the PDF, which may be in a vault."""
     root = Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache") / "srd" / "parsed"
@@ -500,6 +510,7 @@ def main():
         ap.error("--allow-write needs --allow")
     if not a.pdf.exists():
         raise SystemExit(f"PDF not found: {a.pdf}")
+    verify_pdf(a.pdf)
     what = a.name if a.kind == "list" else a.kind + "s"
     if what not in ("monsters", "spells"):
         raise SystemExit("list takes 'monsters' or 'spells'")

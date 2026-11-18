@@ -25,7 +25,7 @@ mkdir -p ~/.cache/srd
   https://media.dndbeyond.com/compendium-images/srd/5.2/SRD_CC_v5.2.1.pdf
 ```
 
-The script needs Python 3.9+ and poppler's `pdftohtml` on `PATH`.
+The script needs Python 3.9+ and poppler's `pdftohtml` on `PATH`. It refuses any PDF other than the official SRD 5.2.1 file, so nothing else is attributed to the SRD.
 
 ## Step 3 — Extract
 
