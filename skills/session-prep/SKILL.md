@@ -11,7 +11,7 @@ The vault's own `CLAUDE.md` and `.claude/rules/` files override anything here. R
 
 ## Step 1 — Establish which campaign and which seat
 
-Identify the campaign folder and read its `CLAUDE.md` contract first: the `seat` field says whether the user is the **DM** or a **player**. This decides everything else, so settle it before reading any other note. If the field is blank and the contract doesn't say, ask, then write the answer into the contract.
+Identify the campaign folder and read only the `seat` field of its `CLAUDE.md` contract first: it says whether the user is the **DM** or a **player**. This decides everything else, so settle it before reading anything else. If it is blank, ask, then write the answer into that field.
 
 **Player seat: settle access before reading anything else.** Read only the user's own character sheet, the session logs and party-visible notes; never `module/`, DM-marked notes, other characters' private notes, or anything the character could not know.
 
@@ -23,7 +23,7 @@ Read, in this order:
 
 1. The most recent session file's **Log** half: where play stopped, open questions, thread updates, anything promised to a player.
 2. `active-threads.md`: what is ready to pay off (on a player seat, only when it holds the party's own threads).
-3. Campaign `CLAUDE.md`: rulings, approved exceptions, session length and schedule, tone and safety notes.
+3. Campaign `CLAUDE.md`: rulings, approved exceptions, session length and schedule, tone and safety notes (on a player seat, only its player-visible fields).
 4. Character sheets (on a player seat, only the user's own), for the quick-reference line and for open "Questions for the player".
 
 **Gate:** if the last session has no log yet, or its log still has open `<!-- unclear: ... -->` items, stop and say so. Prep built on an unlogged or unsettled session is wrong about where things stand. Offer the log first; on a yes, load the `session-log` skill and come back to prep only when the user asks.
