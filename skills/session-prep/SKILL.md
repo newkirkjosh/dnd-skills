@@ -7,7 +7,7 @@ description: "Explicit-use only — invoke when the user explicitly names this s
 
 Produce a cheat sheet the user can run a session from, not a reprint of the module. Everything in it should be something likely to come up at the table, with links to the notes that hold the detail.
 
-The vault's own `CLAUDE.md` and `.claude/rules/` files override anything here, except that nothing widens a player seat's read and write boundary (Step 1). After Step 1 settles the seat, read the layout rule (`.claude/rules/layout.md` in the vault): it defines the campaign contract, the session file and the entity-note styles. If the vault has no such rule, adapt to what the campaign has (`CLAUDE.md`, `party.md`, `active-threads.md`, `sessions/`, `npcs/`, `world/`, `characters/`, and for a DM campaign `module/` and `reference/bestiary/`).
+The vault's own `CLAUDE.md` and `.claude/rules/` files override anything here, except that nothing widens a player seat's read and write boundary (Step 1). After Step 1 settles the seat, read the layout rule (`.claude/rules/layout.md` in the vault; on a player seat, only if the vault makes it available to that seat, otherwise use the fallback below): it defines the campaign contract, the session file and the entity-note styles. If the vault has no such rule, adapt to what the campaign has (`CLAUDE.md`, `party.md`, `active-threads.md`, `sessions/`, `npcs/`, `world/`, `characters/`, and for a DM campaign `module/` and `reference/bestiary/`).
 
 ## Step 1 — Establish which campaign and which seat
 
