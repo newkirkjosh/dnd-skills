@@ -52,7 +52,7 @@ If the notes are ambiguous on something the derived sections depend on (who died
 
 ## Step 4 — Update the campaign
 
-Change only what the session changed. On a player seat, every edit in this step stays inside Step 1's write boundary: a change that belongs in a note the user can read but doesn't keep (the contract, the DM's notes, another player's sheet) is listed in the report for whoever owns it, not made.
+Change only what the session changed. On a player seat, what goes into a note must suit who can read that note: a private whisper or a secret the character keeps stays out of the shared Log and party-visible notes (it belongs on the user's own sheet). Every edit in this step stays inside Step 1's write boundary: a change that belongs in a note the user can read but doesn't keep (the contract, the DM's notes, another player's sheet) is listed in the report for whoever owns it, not made.
 
 - **`active-threads.md`:** new threads, changed statuses, resolved threads, and the in-game date at the top.
 - **NPCs and places:** follow the campaign's entity style from the layout rule. One note per entity: create new notes from the vault's `npc.md` / `location.md` templates. Roll-up files: add or update a `###` entry. Either way, record what the party knows, attitude, and what changed.

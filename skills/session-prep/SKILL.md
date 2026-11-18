@@ -11,7 +11,7 @@ The vault's own `CLAUDE.md` and `.claude/rules/` files override anything here, e
 
 ## Step 1 — Establish which campaign and which seat
 
-Identify the campaign folder and read only the `seat` field of its `CLAUDE.md` contract first: it says whether the user is the **DM** or a **player**. This decides everything else, so settle it before reading anything else. If it is blank, ask, then write the answer into that field.
+Identify the campaign folder and read only the `seat` field of its `CLAUDE.md` contract first: it says whether the user is the **DM** or a **player**. This decides everything else, so settle it before reading anything else. If it is blank, ask and use the answer for this run; write it into the field only if the user may edit the contract.
 
 **Player seat: settle access before reading anything else.** Read only the user's own character sheet, the session logs and party-visible notes; never `module/`, DM-marked notes, other characters' private notes, or anything the character could not know.
 
