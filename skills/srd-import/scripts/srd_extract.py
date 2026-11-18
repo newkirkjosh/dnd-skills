@@ -472,10 +472,15 @@ def main():
                   "\nRe-run with --suffix (e.g. ' (Spell)' or ' (Rules)') or pick the right layer.", file=sys.stderr)
             sys.exit(3)
     target = a.out / fname
-    if target.exists():
-        raise SystemExit(f"Refusing to overwrite {target}")
+    if a.allow and not any(a.out.resolve().is_relative_to(p.resolve()) for p in a.allow):
+        raise SystemExit(f"Refusing to write outside the allowed folders: {a.out}")
     a.out.mkdir(parents=True, exist_ok=True)
-    target.write_text(note, encoding="utf-8")
+    try:
+        # Exclusive create: also refuses an existing file or a dangling symlink.
+        with open(target, "x", encoding="utf-8") as f:
+            f.write(note)
+    except FileExistsError:
+        raise SystemExit(f"Refusing to overwrite {target}")
     print(target)
 
 
