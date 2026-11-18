@@ -2,6 +2,8 @@
 # Tests for the --allow boundary in srd_extract.py. Standard library only.
 set -uo pipefail
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+status=0
+if PYTHONDONTWRITEBYTECODE=1 python3 -I "$here/srd_extract.py" --pdf /nonexistent monster X --vault /tmp --allow-write /tmp 2>/dev/null; then echo "FAIL --allow-write without --allow accepted"; status=1; else [ $? -eq 2 ] && echo "ok   --allow-write without --allow is refused" || { echo "FAIL wrong exit for --allow-write alone"; status=1; }; fi
 PYTHONDONTWRITEBYTECODE=1 HERE="$here" python3 -I - <<'PY'
 import os, sys, tempfile
 from pathlib import Path
@@ -37,3 +39,5 @@ check("a readable folder can be named", read.covers(v / "party"))
 check("but is not writable unless listed", not w.covers(v / "party"))
 sys.exit(1 if fails else 0)
 PY
+[ $? -eq 0 ] || status=1
+exit $status

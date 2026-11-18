@@ -482,6 +482,8 @@ def main():
     ap.add_argument("--allow-write", type=Path, action="append", default=[],
                     help="with --allow: folders --out may write to; without one, --out is refused")
     a = ap.parse_args()
+    if a.allow_write and not a.allow:
+        ap.error("--allow-write needs --allow")
     if not a.pdf.exists():
         raise SystemExit(f"PDF not found: {a.pdf}")
     what = a.name if a.kind == "list" else a.kind + "s"
