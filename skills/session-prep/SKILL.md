@@ -42,6 +42,8 @@ Create `sessions/YYYY-MM-DD.md` from the vault's session template when it has on
 
 ### DM prep contains
 
+**Audience first.** Establish who can read this session file before writing anything. If players can, the running order, encounters, DCs and other DM-only material go in a DM-only note, and the Prep half only links to it.
+
 - **Where we're picking up:** one or two sentences, straight from the last log.
 - **Pre-game checklist:** maps loaded, handouts ready, player questions that must be answered before play.
 - **Quick reference:** one line per PC with AC, HP, passive Perception, and anything a ruling changed.
@@ -50,7 +52,7 @@ Create `sessions/YYYY-MM-DD.md` from the vault's session template when it has on
 - **Threads ripe to pull:** from `active-threads.md`, each tied to the PC it belongs to.
 - **If they go off-track:** two or three likely detours, each one line, plus a few ready names.
 - **Target stopping point:** where to end, with an earlier and a later fallback.
-- **Secrets:** first establish who can read this session file. A PC's secret from the party goes under a DM-only callout only when just the DM can; otherwise it stays in a DM-only note and the Prep says only that there is something to deliver. Either way it is delivered privately, never read aloud.
+- **Secrets:** a PC's secret from the party goes under a DM-only callout when just the DM can read this file, otherwise in the DM-only note. Either way it is delivered privately, never read aloud.
 
 ### Player prep contains
 

@@ -23,7 +23,7 @@ Read only this campaign's folder and the vault's shared `reference/`. Another ca
 
 ## Step 2 — The session file
 
-The date is the filename (`sessions/YYYY-MM-DD.md`). Take it from the notes, the schedule, or an existing file with Prep and no Log; ask only when none of those settle it.
+The date is the filename (`sessions/YYYY-MM-DD.md`). Take it from the notes, the schedule, or an existing file with Prep and no Log (on a player seat, only from what that seat may read: the notes, a visible schedule, Log halves); ask when those don't settle it.
 
 - **File exists** (usually, from `session-prep`): write under `# Log` only. Never touch `# Prep`.
 - **No file:** copy the vault's session template (`reference/templates/session.md`), set the date, and leave `# Prep` empty.
