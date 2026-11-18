@@ -36,27 +36,39 @@ ATTRIBUTION = ("This work includes material from the System Reference Document 5
 SRD_PDF_SHA256 = "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87"
 
 
-def verify_pdf(pdf: Path) -> None:
-    digest = hashlib.sha256(pdf.read_bytes()).hexdigest()
+def cache_root() -> Path:
+    return Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache") / "srd" / "verified" / SRD_PDF_SHA256
+
+
+def verified_copy(pdf: Path) -> Path:
+    """Check the PDF's bytes and return a private snapshot of exactly those bytes."""
+    data = pdf.read_bytes()
+    digest = hashlib.sha256(data).hexdigest()
     if digest != SRD_PDF_SHA256:
         raise SystemExit(f"Not the official SRD 5.2.1 PDF (sha256 {digest}): {pdf}")
+    root = cache_root()
+    root.mkdir(parents=True, exist_ok=True)
+    copy = root / "source.pdf"
+    if not copy.exists() or hashlib.sha256(copy.read_bytes()).hexdigest() != digest:
+        tmp = root / f"source.{os.getpid()}.tmp"
+        tmp.write_bytes(data)
+        os.replace(tmp, copy)
+    return copy
 
 
-def cache_path(pdf: Path, first: int, last: int) -> Path:
-    """Parsed pages live in the user's cache, never beside the PDF, which may be in a vault."""
-    root = Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache") / "srd" / "parsed"
-    key = hashlib.sha256(str(pdf.resolve()).encode()).hexdigest()[:16]
-    return root / f"{key}.p{first}-{last}.xml"
+def cache_path(first: int, last: int) -> Path:
+    """Parsed pages live in the user's cache, keyed by the verified PDF, never beside it."""
+    return cache_root() / f"p{first}-{last}.xml"
 
 
 def load_lines(pdf: Path, first: int, last: int):
     """Return text lines in reading order: page, then left column, then right column."""
-    cache = cache_path(pdf, first, last)
-    cache.parent.mkdir(parents=True, exist_ok=True)
-    if not cache.exists() or cache.stat().st_mtime < pdf.stat().st_mtime:
-        stem = str(cache)[:-4]
-        subprocess.run(["pdftohtml", "-xml", "-i", "-q", "-f", str(first), "-l", str(last), str(pdf), stem],
+    cache = cache_path(first, last)
+    if not cache.exists():
+        stem = cache.with_name(f"{cache.stem}.{os.getpid()}.tmp")
+        subprocess.run(["pdftohtml", "-xml", "-i", "-q", "-f", str(first), "-l", str(last), str(pdf), str(stem)],
                        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        os.replace(f"{stem}.xml", cache)  # published only after a successful conversion
     # pdftohtml sometimes emits mis-nested <i>/<b>, so read it line by line instead of as XML
     fonts, lines, items, pno, mid = {}, [], [], 0, 445
 
@@ -510,7 +522,7 @@ def main():
         ap.error("--allow-write needs --allow")
     if not a.pdf.exists():
         raise SystemExit(f"PDF not found: {a.pdf}")
-    verify_pdf(a.pdf)
+    a.pdf = verified_copy(a.pdf)
     what = a.name if a.kind == "list" else a.kind + "s"
     if what not in ("monsters", "spells"):
         raise SystemExit("list takes 'monsters' or 'spells'")
