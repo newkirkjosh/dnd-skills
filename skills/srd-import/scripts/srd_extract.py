@@ -463,8 +463,10 @@ class Boundary:
         if shown is None or not inside(shown):  # decide before touching the path
             return False
         try:
+            if p.is_symlink() and not p.exists():  # dangling, or a loop
+                return False
             real = self._real(p)
-        except (OSError, RuntimeError):  # a symlink loop, for example
+        except (OSError, RuntimeError):
             return False
         return real is not None and inside(real)
 
