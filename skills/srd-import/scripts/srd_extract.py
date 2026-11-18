@@ -24,7 +24,12 @@ RED, DARKRED, GREY = "#88191f", "#4a0508", "#5a5757"
 SIZES = {"Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"}
 SECTIONS = {"Traits": "traits", "Actions": "actions", "Bonus Actions": "bonus_actions",
             "Reactions": "reactions", "Legendary Actions": "legendary_actions"}
-SOURCE = "SRD 5.2.1 (= 2025 Monster Manual), CC-BY-4.0"
+SOURCE = "SRD 5.2.1, CC-BY-4.0"
+# The attribution notice the SRD 5.2.1 asks for, carried in every note.
+ATTRIBUTION = ("This work includes material from the System Reference Document 5.2.1 (\"SRD 5.2.1\") by "
+               "Wizards of the Coast LLC, available at https://www.dndbeyond.com/srd. The SRD 5.2.1 is licensed "
+               "under the Creative Commons Attribution 4.0 International License, available at "
+               "https://creativecommons.org/licenses/by/4.0/legalcode.")
 
 
 def load_lines(pdf: Path, first: int, last: int):
@@ -260,7 +265,7 @@ def monster_yaml(d):
 
 def monster_note(d):
     return (f"---\ntags: [bestiary, srd]\nsource: {SOURCE}\n---\n# {d['name']}\n\n"
-            f"```statblock\n{monster_yaml(d)}\n```\n")
+            f"```statblock\n{monster_yaml(d)}\n```\n\n*{ATTRIBUTION}*\n")
 
 
 # ---------------------------------------------------------------- spells
@@ -402,7 +407,7 @@ def spell_note(name, body, join):
     comp = fields.get("Component") or fields.get("Components", "")
     ritual = "ritual" in fields.get("Casting Time", "").lower()
     conc = fields.get("Duration", "").lower().startswith("concentration")
-    fm = ["---", "tags: [spell, srd]", f"source: SRD 5.2.1, CC-BY-4.0", f"level: {level}", f"school: {school}",
+    fm = ["---", "tags: [spell, srd]", f"source: {SOURCE}", f"level: {level}", f"school: {school}",
           f"classes: [{', '.join(classes)}]", f"ritual: {str(ritual).lower()}", f"concentration: {str(conc).lower()}", "---"]
     lvl = f"{school.title()} cantrip" if level == 0 else f"Level {level} {school}"
     head = [f"# {name}", "", f"*{lvl} ({', '.join(c.title() for c in classes)})*", "",
@@ -410,7 +415,7 @@ def spell_note(name, body, join):
             f"- **Components:** {comp}", f"- **Duration:** {fields.get('Duration', '')}", ""]
     for w in warnings:
         print(f"WARNING {name}: {w}", file=sys.stderr)
-    return "\n".join(fm + head) + "\n" + "\n\n".join(blocks) + "\n"
+    return "\n".join(fm + head) + "\n" + "\n\n".join(blocks) + f"\n\n*{ATTRIBUTION}*\n"
 
 
 # ---------------------------------------------------------------- cli
@@ -457,8 +462,10 @@ def main():
     if a.vault:
         clash = [p for p in a.vault.rglob("*.md") if p.name.lower() == fname.lower() and ".trash" not in p.parts]
         if clash:
-            allowed = [p.resolve() for p in a.allow]
-            shown = [c for c in clash if not allowed or any(c.resolve().is_relative_to(d) for d in allowed)]
+            allowed = [p.resolve() for p in a.allow] + [p.absolute() for p in a.allow]
+            def readable(p):  # both the path shown and what it points to must be inside the boundary
+                return any(p.absolute().is_relative_to(d) for d in allowed) and any(p.resolve().is_relative_to(d) for d in allowed)
+            shown = [c for c in clash if not allowed or readable(c)]
             hidden = len(clash) - len(shown)
             where = ", ".join(str(c) for c in shown) + (f" (+{hidden} outside the readable folders)" if hidden else "")
             print(f"Basename clash for {fname}: " + where +

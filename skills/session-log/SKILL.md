@@ -9,7 +9,7 @@ metadata:
 
 Record what happened at the table, then make every campaign note agree with it. A log is a jog to memory, not a retelling.
 
-The vault's own `CLAUDE.md` and `.claude/rules/` override anything here. Read the layout rule (`.claude/rules/layout.md` in the vault) first: it defines the campaign contract, the session file and the two entity-note styles. If the vault has no such rule, adapt to what the campaign already has.
+The vault's own `CLAUDE.md` and `.claude/rules/` override anything here. After Step 1 settles the seat, read the layout rule (`.claude/rules/layout.md` in the vault): it defines the campaign contract, the session file and the two entity-note styles. If the vault has no such rule, adapt to what the campaign already has.
 
 ## Step 1 — Campaign and seat
 
