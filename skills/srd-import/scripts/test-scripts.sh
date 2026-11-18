@@ -8,7 +8,7 @@ PYTHONDONTWRITEBYTECODE=1 HERE="$here" python3 -I - <<'PY'
 import os, sys, tempfile
 from pathlib import Path
 sys.path.insert(0, os.environ["HERE"])
-from srd_extract import Boundary, cache_path, verified_copy, SRD_PDF_SHA256
+from srd_extract import Boundary, load_lines, verified_copy, work_dir, SRD_PDF_SHA256
 
 v = Path(tempfile.mkdtemp())
 (v / "reference").mkdir(); (v / "private").mkdir()
@@ -43,8 +43,19 @@ try:
     verified_copy(v / "other.pdf"); check("a different PDF is refused", False)
 except SystemExit:
     check("a different PDF is refused", True)
-c = cache_path(1, 2)
-check("parsed pages are cached by verified digest, outside the vault", c.is_relative_to(v / "user-cache") and SRD_PDF_SHA256 in str(c))
+old = v / "user-cache/srd/verified" / SRD_PDF_SHA256
+old.mkdir(parents=True)
+page = '<page number="1" width="900">\n<fontspec id="0" size="12" family="F" color="#000000"/>\n<text top="10" left="10" width="9" height="9" font="0">%s</text>\n'
+(old / "p1-2.xml").write_text(page % "PLANTED")
+(old / "source.pdf").write_bytes(b"planted")
+(v / "bin").mkdir()
+(v / "bin/pdftohtml").write_text("#!/bin/sh\nfor last; do :; done\ncat > \"$last.xml\" <<'EOF'\n" + page % "CONVERTED" + "EOF\n")
+(v / "bin/pdftohtml").chmod(0o755)
+os.environ["PATH"] = f"{v / 'bin'}{os.pathsep}{os.environ['PATH']}"
+got = [l["text"] for l in load_lines(v / "other.pdf", 1, 2)]
+check("planted parsed pages are ignored; each run converts afresh", got == ["CONVERTED"])
+check("the run's files stay out of the vault and the user cache", not work_dir().is_relative_to(v))
+check("the run directory is private", work_dir().stat().st_mode & 0o077 == 0)
 w = Boundary(v, [v / "reference"])
 (v / "party").mkdir(); read = Boundary(v, [v / "reference", v / "party"])
 check("a readable folder can be named", read.covers(v / "party"))

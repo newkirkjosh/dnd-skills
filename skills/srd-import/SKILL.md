@@ -17,7 +17,7 @@ Search the readable notes for one with the entry's name before importing. If the
 
 ## Step 2 — Get the PDF
 
-Keep one cached copy; the script caches a verified copy and its parsed pages under `~/.cache/srd/verified/`.
+Keep one cached copy. On every run the script verifies it and parses a private snapshot, keeping no parsed pages.
 
 ```bash
 mkdir -p ~/.cache/srd

@@ -15,7 +15,7 @@ refuse (exit 3) when any note with the same basename already exists in the vault
 repeatable, it names only clashes under those folders and counts the rest), unless
 --suffix " (Spell)" is given to rename the new note.
 """
-import argparse, hashlib, html, json, os, re, subprocess, sys
+import argparse, hashlib, html, json, os, re, subprocess, sys, tempfile
 from pathlib import Path
 
 MONSTER_PAGES = (254, 364)
@@ -36,8 +36,15 @@ ATTRIBUTION = ("This work includes material from the System Reference Document 5
 SRD_PDF_SHA256 = "8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87"
 
 
-def cache_root() -> Path:
-    return Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache") / "srd" / "verified" / SRD_PDF_SHA256
+_work = None
+
+
+def work_dir() -> Path:
+    """A private directory for this run, removed at exit. Nothing parsed outlives the run."""
+    global _work
+    if _work is None:
+        _work = tempfile.TemporaryDirectory(prefix="srd-extract-")
+    return Path(_work.name)
 
 
 def verified_copy(pdf: Path) -> Path:
@@ -46,29 +53,17 @@ def verified_copy(pdf: Path) -> Path:
     digest = hashlib.sha256(data).hexdigest()
     if digest != SRD_PDF_SHA256:
         raise SystemExit(f"Not the official SRD 5.2.1 PDF (sha256 {digest}): {pdf}")
-    root = cache_root()
-    root.mkdir(parents=True, exist_ok=True)
-    copy = root / "source.pdf"
-    if not copy.exists() or hashlib.sha256(copy.read_bytes()).hexdigest() != digest:
-        tmp = root / f"source.{os.getpid()}.tmp"
-        tmp.write_bytes(data)
-        os.replace(tmp, copy)
+    copy = work_dir() / "source.pdf"
+    copy.write_bytes(data)
     return copy
-
-
-def cache_path(first: int, last: int) -> Path:
-    """Parsed pages live in the user's cache, keyed by the verified PDF, never beside it."""
-    return cache_root() / f"p{first}-{last}.xml"
 
 
 def load_lines(pdf: Path, first: int, last: int):
     """Return text lines in reading order: page, then left column, then right column."""
-    cache = cache_path(first, last)
-    if not cache.exists():
-        stem = cache.with_name(f"{cache.stem}.{os.getpid()}.tmp")
-        subprocess.run(["pdftohtml", "-xml", "-i", "-q", "-f", str(first), "-l", str(last), str(pdf), str(stem)],
-                       check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        os.replace(f"{stem}.xml", cache)  # published only after a successful conversion
+    stem = work_dir() / f"p{first}-{last}"
+    subprocess.run(["pdftohtml", "-xml", "-i", "-q", "-f", str(first), "-l", str(last), str(pdf), str(stem)],
+                   check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    parsed = stem.with_name(f"{stem.name}.xml")
     # pdftohtml sometimes emits mis-nested <i>/<b>, so read it line by line instead of as XML
     fonts, lines, items, pno, mid = {}, [], [], 0, 445
 
@@ -78,7 +73,7 @@ def load_lines(pdf: Path, first: int, last: int):
         items.clear()
 
     text_re = re.compile(r'<text top="(\d+)" left="(\d+)" width="\d+" height="\d+" font="(\d+)">(.*)</text>')
-    for row in cache.read_text(encoding="utf-8").splitlines():
+    for row in parsed.read_text(encoding="utf-8").splitlines():
         m = re.search(r'<page number="(\d+)"[^>]*width="(\d+)"', row)
         if m:
             flush(); pno, mid = int(m.group(1)), int(m.group(2)) // 2
