@@ -50,7 +50,7 @@ Create `sessions/YYYY-MM-DD.md` from the vault's session template when it has on
 - **Threads ripe to pull:** from `active-threads.md`, each tied to the PC it belongs to.
 - **If they go off-track:** two or three likely detours, each one line, plus a few ready names.
 - **Target stopping point:** where to end, with an earlier and a later fallback.
-- **Secrets:** a PC's secret from the party goes under a DM-only callout and is delivered privately, never read aloud.
+- **Secrets:** first establish who can read this session file. A PC's secret from the party goes under a DM-only callout only when just the DM can; otherwise it stays in a DM-only note and the Prep says only that there is something to deliver. Either way it is delivered privately, never read aloud.
 
 ### Player prep contains
 
