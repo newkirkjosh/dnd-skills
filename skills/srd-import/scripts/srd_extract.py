@@ -15,7 +15,7 @@ refuse (exit 3) when any note with the same basename already exists in the vault
 repeatable, it names only clashes under those folders and counts the rest), unless
 --suffix " (Spell)" is given to rename the new note.
 """
-import argparse, html, json, re, subprocess, sys
+import argparse, hashlib, html, json, os, re, subprocess, sys
 from pathlib import Path
 
 MONSTER_PAGES = (254, 364)
@@ -32,9 +32,17 @@ ATTRIBUTION = ("This work includes material from the System Reference Document 5
                "https://creativecommons.org/licenses/by/4.0/legalcode.")
 
 
+def cache_path(pdf: Path, first: int, last: int) -> Path:
+    """Parsed pages live in the user's cache, never beside the PDF, which may be in a vault."""
+    root = Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache") / "srd" / "parsed"
+    key = hashlib.sha256(str(pdf.resolve()).encode()).hexdigest()[:16]
+    return root / f"{key}.p{first}-{last}.xml"
+
+
 def load_lines(pdf: Path, first: int, last: int):
     """Return text lines in reading order: page, then left column, then right column."""
-    cache = pdf.with_name(f"{pdf.stem}.p{first}-{last}.xml")
+    cache = cache_path(pdf, first, last)
+    cache.parent.mkdir(parents=True, exist_ok=True)
     if not cache.exists() or cache.stat().st_mtime < pdf.stat().st_mtime:
         stem = str(cache)[:-4]
         subprocess.run(["pdftohtml", "-xml", "-i", "-q", "-f", str(first), "-l", str(last), str(pdf), stem],

@@ -17,7 +17,7 @@ Search the readable notes for one with the entry's name before importing. If the
 
 ## Step 2 — Get the PDF
 
-Keep one cached copy; the script caches its parsed pages next to it.
+Keep one cached copy; the script caches its parsed pages under `~/.cache/srd/parsed/`.
 
 ```bash
 mkdir -p ~/.cache/srd
@@ -35,11 +35,15 @@ PDF=~/.cache/srd/SRD_CC_v5.2.1.pdf
 
 python3 "$S" --pdf "$PDF" list monsters goblin        # find the exact SRD name
 python3 "$S" --pdf "$PDF" monster "Goblin Warrior"    # preview on stdout
-python3 "$S" --pdf "$PDF" monster "Goblin Warrior" --out <vault>/reference/bestiary --vault <vault root>
-python3 "$S" --pdf "$PDF" spell "Fireball" --out <vault>/reference/spells --vault <vault root>
-# player seat: name only clashes the seat may read; every other clash is just counted
-python3 "$S" --pdf "$PDF" monster "Goblin Warrior" --out <vault>/reference/bestiary --vault <vault root> \
-  --allow <vault>/reference --allow <each readable note or folder> --allow-write <vault>/reference
+VAULT="/path/to/vault"
+
+# DM seat only: no boundary
+python3 "$S" --pdf "$PDF" monster "Goblin Warrior" --out "$VAULT/reference/bestiary" --vault "$VAULT"
+python3 "$S" --pdf "$PDF" spell "Fireball" --out "$VAULT/reference/spells" --vault "$VAULT"
+
+# Player seat: every --out needs both boundaries. Only clashes the seat may read are named.
+python3 "$S" --pdf "$PDF" monster "Goblin Warrior" --out "$VAULT/reference/bestiary" --vault "$VAULT" \
+  --allow "$VAULT/reference" --allow "$VAULT/campaigns/example/party.md" --allow-write "$VAULT/reference"
 ```
 
 - 2024 names differ from 2014: "Thug" is **Tough**, "Veteran" is **Warrior Veteran**, "Goblin" is **Goblin Warrior**. Use `list` with a fragment when a name is not found.

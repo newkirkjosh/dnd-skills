@@ -8,7 +8,7 @@ PYTHONDONTWRITEBYTECODE=1 HERE="$here" python3 -I - <<'PY'
 import os, sys, tempfile
 from pathlib import Path
 sys.path.insert(0, os.environ["HERE"])
-from srd_extract import Boundary
+from srd_extract import Boundary, cache_path
 
 v = Path(tempfile.mkdtemp())
 (v / "reference").mkdir(); (v / "private").mkdir()
@@ -33,6 +33,9 @@ try:
     Boundary(v, [Path(tempfile.mkdtemp())]); check("allow entry outside the vault is refused", False)
 except SystemExit:
     check("allow entry outside the vault is refused", True)
+os.environ["XDG_CACHE_HOME"] = str(v / "user-cache")
+c = cache_path(v / "reference/SRD.pdf", 1, 2)
+check("parsed pages are cached outside the vault's PDF folder", c.is_relative_to(v / "user-cache") and not c.is_relative_to(v / "reference"))
 w = Boundary(v, [v / "reference"])
 (v / "party").mkdir(); read = Boundary(v, [v / "reference", v / "party"])
 check("a readable folder can be named", read.covers(v / "party"))
