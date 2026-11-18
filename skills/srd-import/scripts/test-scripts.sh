@@ -33,6 +33,10 @@ try:
     Boundary(v, [Path(tempfile.mkdtemp())]); check("allow entry outside the vault is refused", False)
 except SystemExit:
     check("allow entry outside the vault is refused", True)
+os.symlink(v / "private/loop.md", v / "private/loop.md")
+check("a private symlink loop is hidden, not an error", not b.covers(v / "private/loop.md"))
+os.symlink(v / "reference/loop.md", v / "reference/loop.md")
+check("an allowed symlink loop is hidden, not an error", not b.covers(v / "reference/loop.md"))
 os.environ["XDG_CACHE_HOME"] = str(v / "user-cache")
 c = cache_path(v / "reference/SRD.pdf", 1, 2)
 check("parsed pages are cached outside the vault's PDF folder", c.is_relative_to(v / "user-cache") and not c.is_relative_to(v / "reference"))

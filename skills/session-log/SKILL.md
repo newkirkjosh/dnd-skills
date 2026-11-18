@@ -27,7 +27,7 @@ The date is the filename (`sessions/YYYY-MM-DD.md`). Take it from the notes, the
 
 - **File exists** (usually, from `session-prep`): write under `# Log` only. Never touch `# Prep`.
 - **No file:** copy the vault's session template (`reference/templates/session.md`), set the date, and leave `# Prep` empty.
-- **Older layout** (a log with no Prep/Log split): fill it in its own layout; don't migrate it.
+- **Older layout** (a log with no Prep/Log split): fill it in its own layout; don't migrate it. On a player seat, only when the file is clearly the user's own log; if you can't tell, stop and ask.
 
 Read the previous session's `# Log` for continuity: who is alive, the in-game date, open threads.
 

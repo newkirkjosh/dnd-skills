@@ -458,11 +458,15 @@ class Boundary:
         return r.relative_to(self.real) if r.is_relative_to(self.real) else None
 
     def covers(self, p):
-        shown, real = self._shown(p), self._real(p)
-        if shown is None or real is None:
-            return False
         inside = lambda x: any(x.is_relative_to(e) for e in self.entries)
-        return inside(shown) and inside(real)
+        shown = self._shown(p)
+        if shown is None or not inside(shown):  # decide before touching the path
+            return False
+        try:
+            real = self._real(p)
+        except (OSError, RuntimeError):  # a symlink loop, for example
+            return False
+        return real is not None and inside(real)
 
 
 # ---------------------------------------------------------------- cli
